@@ -1,0 +1,19 @@
+{
+    "name": "oasis-pandey-portfolio",
+    "short_name": "OP Portfolio",
+    "description": "Software Developer Portfolio - Oasis Pandey",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#6366f1",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "assets/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}
