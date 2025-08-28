@@ -57,15 +57,6 @@ function scrollHeader() {
 }
 window.addEventListener('scroll', scrollHeader);
 
-/*=============== SHOW SCROLL UP ===============*/
-function scrollUp() {
-    const scrollUp = document.getElementById('scroll-up');
-    // When the scroll is higher than 560 viewport height, add the show-scroll class to the a tag with the scroll-top class
-    if (this.scrollY >= 560) scrollUp.classList.add('show-scroll');
-    else scrollUp.classList.remove('show-scroll');
-}
-window.addEventListener('scroll', scrollUp);
-
 /*=============== SCROLL SECTIONS ACTIVE LINK ===============*/
 const sections = document.querySelectorAll('section[id]');
 
@@ -277,16 +268,13 @@ function debounce(func, wait = 20, immediate = true) {
 
 // Throttle scroll events
 const throttledScrollHeader = debounce(scrollHeader);
-const throttledScrollUp = debounce(scrollUp);
 const throttledScrollActive = debounce(scrollActive);
 
 // Remove default listeners and add throttled ones
 window.removeEventListener('scroll', scrollHeader);
-window.removeEventListener('scroll', scrollUp);
 window.removeEventListener('scroll', scrollActive);
 
 window.addEventListener('scroll', throttledScrollHeader);
-window.addEventListener('scroll', throttledScrollUp);
 window.addEventListener('scroll', throttledScrollActive);
 
 /*=============== LAZY LOADING IMAGES ===============*/
@@ -352,29 +340,6 @@ if (darkModeToggle) {
 }
 
 /*=============== COPY EMAIL TO CLIPBOARD ===============*/
-const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
-
-emailLinks.forEach(link => {
-    link.addEventListener('click', function (e) {
-        e.preventDefault();
-        const email = this.href.replace('mailto:', '');
-
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(email).then(() => {
-                showMessage('Email address copied to clipboard!', true);
-            }).catch(() => {
-                // Fallback for older browsers
-                const textArea = document.createElement('textarea');
-                textArea.value = email;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-                showMessage('Email address copied to clipboard!', true);
-            });
-        }
-    });
-});
 
 /*=============== INITIALIZE ON DOM CONTENT LOADED ===============*/
 document.addEventListener('DOMContentLoaded', function () {
