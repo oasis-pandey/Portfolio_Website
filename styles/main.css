@@ -847,12 +847,15 @@ img {
 
 /* CONTACT */
 .contact__container {
-    row-gap: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    row-gap: 0;
+    width: 100%;
 }
 
 .contact__information {
-    display: flex;
-    margin-bottom: var(--mb-2);
+    display: none;
 }
 
 .contact__info {
@@ -878,6 +881,8 @@ img {
 
 .contact__form {
     width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .contact__inputs {
