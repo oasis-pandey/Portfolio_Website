@@ -134,58 +134,88 @@ img {
 }
 
 /* HEADER */
+
 .nav {
     width: 100%;
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     z-index: var(--z-fixed);
-    background-color: var(--body-color);
-    box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.15);
-    transition: .3s;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 24px rgba(99, 102, 241, 0.08), 0 1.5px 8px rgba(0, 0, 0, 0.08);
+    border-bottom: 1.5px solid var(--primary-color-lighter);
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 .nav__container {
-    max-width: 1200px;
+    width: 100%;
     height: var(--header-height);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: var(--mb-1-5);
-    margin-right: var(--mb-1-5);
+    padding: 0 2.5vw;
+    box-sizing: border-box;
 }
 
 .nav__logo {
     color: var(--title-color);
     font-weight: var(--font-medium);
     font-size: var(--h3-font-size);
+    letter-spacing: 2px;
+    transition: transform 0.3s, color 0.3s;
 }
 
 .nav__logo:hover {
     color: var(--primary-color);
+    transform: scale(1.12) rotate(-6deg);
 }
 
 .nav__menu {
     position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav__list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5vw;
+    width: 100%;
 }
 
 .nav__link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: var(--small-font-size);
+    display: inline-block;
+    font-size: 1rem;
     color: var(--title-color);
     font-weight: var(--font-medium);
-    transition: .3s;
+    position: relative;
+    padding: 0.5rem 1.2rem;
+    border-radius: 0.5rem;
+    transition: color 0.3s, background 0.3s;
+}
+
+.nav__link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
 }
 
 .nav__link:hover {
     color: var(--primary-color);
+}
+
+.nav__link:hover::after {
+    width: 100%;
 }
 
 .nav__close,
