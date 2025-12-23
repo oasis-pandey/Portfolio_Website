@@ -105,10 +105,23 @@ const contactEmail = document.getElementById('contact-email');
 const contactProject = document.getElementById('contact-project');
 const contactMessage = document.getElementById('contact-message');
 
-// Initialize EmailJS
-(function () {
-    emailjs.init('_z_CUrvnpbrvDDQiC'); // Replace with your EmailJS public key (User ID)
-})();
+// EmailJS configuration
+const EMAILJS_PUBLIC_KEY = '_z_CUrvnpbrvDDQiC'; // Replace with your EmailJS public key
+const EMAILJS_SERVICE_ID = 'service_yzsw3ad';   // Replace with your EmailJS service ID
+const EMAILJS_TEMPLATE_ID = 'template_iijiiul'; // Replace with your EmailJS template ID
+
+// Initialize EmailJS when the SDK is available
+let emailJsReady = false;
+if (typeof emailjs !== 'undefined') {
+    try {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+        emailJsReady = true;
+    } catch (err) {
+        console.error('EmailJS init failed:', err);
+    }
+} else {
+    console.error('EmailJS SDK not loaded');
+}
 
 // Show message function
 const showMessage = (message, isSuccess = true) => {
@@ -173,6 +186,11 @@ if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
+        if (!emailJsReady) {
+            showMessage('Email service is unavailable right now. Please try again or email me directly.', false);
+            return;
+        }
+
         if (validateForm()) {
             // Show loading state
             const submitButton = contactForm.querySelector('button[type="submit"]');
@@ -190,14 +208,15 @@ if (contactForm) {
             };
 
             // Send email using EmailJS
-            emailjs.send('service_yzsw3ad', 'template_iijiiul', templateParams)
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
                 .then(() => {
                     showMessage('Thank you! Your message has been sent successfully. I\'ll get back to you soon.', true);
                     contactForm.reset();
                 })
                 .catch((error) => {
                     console.error('EmailJS Error:', error);
-                    showMessage('Sorry, there was an error sending your message. Please try again or contact me directly.', false);
+                    const reason = error?.text || error?.message || 'Unknown error';
+                    showMessage(`Sorry, there was an error sending your message (${reason}). Please try again or contact me directly.`, false);
                 })
                 .finally(() => {
                     // Reset button
