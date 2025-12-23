@@ -1,7 +1,9 @@
 {
   "name": "oasis-pandey-portfolio",
   "compatibility_date": "2025-12-23",
+  "main": "worker.js",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS"
   }
 }
